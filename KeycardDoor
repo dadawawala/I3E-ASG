@@ -1,0 +1,33 @@
+using UnityEngine;
+
+public class KeycardDoor : MonoBehaviour
+{
+    public PlayerController player;
+    public float openAngle = 90f;
+    public float openSpeed = 2f;
+    private bool isOpening = false;
+    private Quaternion initialRotation;
+    private Quaternion targetRotation;
+
+    private void Start()
+    {
+        initialRotation = transform.rotation;
+        targetRotation = Quaternion.Euler(transform.eulerAngles + Vector3.up * openAngle);
+    }
+
+    private void Update()
+    {
+        if (isOpening)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * openSpeed);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && player.HasAllKeycards())
+        {
+            isOpening = true;
+        }
+    }
+}
