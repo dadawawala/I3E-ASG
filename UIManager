@@ -1,0 +1,30 @@
+using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
+
+public class UIManager : MonoBehaviour
+{
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI keycardText;
+    public GameObject deathScreen;
+
+    public void UpdateHealth(int value)
+    {
+        healthText.text = "Health: " + value;
+    }
+
+    public void UpdateKeycards(int collected, int total)
+    {
+        keycardText.text = "Keycards: " + collected + " / " + total;
+    }
+
+    public void ShowDeathScreen()
+    {
+        deathScreen.SetActive(true);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+}
